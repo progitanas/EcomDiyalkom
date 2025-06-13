@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits - EcomDiyalkom</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Nos Produits</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+                <li><a href="Panier.html">Panier <span id="cart-count">0</span></a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="auth.html">Login/Sign Up</a></li>
+                <li><a href="produits.html">Produits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Catalogue de produits</h2>
+            
+            <div class="product-filters">
+                <label for="category">Filtrer par catégorie:</label>
+                <select id="category" onchange="filterProducts()">
+                    <option value="all">Tous les produits</option>
+                    <option value="clothing">Vêtements</option>
+                    <option value="accessories">Accessoires</option>
+                    <option value="decor">Décoration</option>
+                </select>
+            </div>
+            
+            <div class="product-grid" id="products-container">
+                <!-- Les produits seront générés dynamiquement ici -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EcomDiyalkom. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, 1, '${product.image}')">
+    Ajouter au panier
+</button>
+        // Données de produits (normalement ces données viendraient d'une API ou d'une base de données)
+        const products = [
+            { id: 1, name: "Vêtement traditionnel", price: 45, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Vêtement fait main par des artisans locaux." },
+            { id: 2, name: "Bijou artisanal", price: 30, category: "accessories", image: "https://thumbs.dreamstime.com/b/bijoux-marocains-26807843.jpg", description: "Accessoire unique fait à la main." },
+            { id: 3, name: "Décoration maison", price: 25, category: "decor", image: "https://th.bing.com/th/id/R.748f964f59182bb17f4ee24e3d5e9c26?rik=p1ZMnFWtWRVumQ&riu=http%3a%2f%2farchzine.fr%2fwp-content%2fuploads%2f2015%2f10%2f0-le-bon-coin-salon-marocain-canap%c3%a9-beige-dans-la-maison-de-style-marocain.jpg&ehk=yq%2bXqpjsAKa%2f0ne4mOQn%2bQpHtrb3IL7nDkAP3oXcuBY%3d&risl=&pid=ImgRaw&r=0", description: "Décorations artisanales pour votre intérieur." },
+            { id: 4, name: "Écharpe tissée", price: 35, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Écharpe tissée à la main avec des matériaux naturels." },
+            { id: 5, name: "Sac à main", price: 50, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Sac à main élégant fabriqué par des artisans locaux." },
+            { id: 6, name: "Tapis décoratif", price: 75, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Tapis artisanal pour embellir votre maison." },
+            { id: 7, name: "Coussin brodé", price: 20, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Coussin brodé à la main pour votre confort." },
+            { id: 8, name: "Montre en bois", price: 60, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Montre unique fabriquée en bois naturel." },
+            { id: 9, name: "Veste en cuir", price: 120, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Veste en cuir faite main pour un style intemporel." },
+            { id: 10, name: "Céramique peinte", price: 40, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Pièce de céramique peinte à la main pour votre collection." },
+            { id: 11, name: "Collier en perles", price: 15, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Collier fait main avec des perles naturelles." },
+            { id: 12, name: "Pantalon en lin", price: 55, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Pantalon léger et confortable en lin." },
+            { id: 13, name: "Tableau mural", price: 80, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Tableau mural peint à la main pour votre décoration intérieure." },
+            { id: 14, name: "Bague en argent", price: 25, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Bague en argent faite main avec des motifs traditionnels." },
+            { id: 15, name: "Chaussures en cuir", price: 90, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Chaussures en cuir confortables et durables." },
+            { id: 16, name: "Mug en céramique", price: 18, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Mug en céramique peint à la main pour votre café ou thé." },
+            { id: 17, name: "Porte-clés en cuir", price: 12, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Porte-clés en cuir fait main, pratique et élégant." },
+            { id: 18, name: "Chemise en coton", price: 65, category: "clothing", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Chemise en coton confortable et respirante." },
+            { id: 19, name: "Vase en verre", price: 22, category: "decor", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Vase en verre soufflé à la main pour vos fleurs." },
+            { id: 20, name: "Bracelet en cuir", price: 28, category: "accessories", image: "https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg", description: "Bracelet en cuir fait main avec des détails uniques." }
+        ];
+        /**
+ * Ajoute un produit au panier avec animation et notification
+ * @param {number} productId - ID unique du produit
+ * @param {string} name - Nom du produit
+ * @param {number} price - Prix du produit
+ * @param {number} quantity - Quantité à ajouter (défaut: 1)
+ * @param {string} image - URL de l'image du produit (optionnel)
+ */
+function addToCart(productId, name, price, quantity = 1, image = null) {
+    // Récupérer le panier actuel ou créer un nouveau panier vide
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Vérifier si le produit est déjà dans le panier
+    const existingProductIndex = cart.findIndex(item => item.id === productId);
+    
+    if (existingProductIndex > -1) {
+        // Augmenter la quantité si le produit est déjà dans le panier
+        cart[existingProductIndex].quantity += quantity;
+        
+        // Notification de mise à jour
+        showNotification(`Quantité mise à jour: ${name} (${cart[existingProductIndex].quantity})`);
+    } else {
+        // Ajouter le nouveau produit au panier
+        const product = { 
+            id: productId, 
+            name: name, 
+            price: price, 
+            quantity: quantity,
+            image: image
+        };
+        
+        cart.push(product);
+        
+        // Notification d'ajout
+        showNotification(`${name} ajouté au panier!`);
+    }
+    
+    // Sauvegarder dans localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    
+    // Mettre à jour le compteur du panier
+    updateCartCount();
+    
+    // Animation du bouton d'ajout
+    animateButton(event.target);
+}
+
+/**
+ * Affiche une notification temporaire
+ */
+function showNotification(message) {
+    // Créer l'élément de notification s'il n'existe pas
+    let notification = document.getElementById('cart-notification');
+    
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'cart-notification';
+        notification.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: transform 0.3s, opacity 0.3s;
+            transform: translateY(100px);
+            opacity: 0;
+        `;
+        document.body.appendChild(notification);
+    }
+    
+    // Afficher la notification avec le message
+    notification.textContent = message;
+    notification.style.transform = 'translateY(0)';
+    notification.style.opacity = '1';
+    
+    // Masquer après 3 secondes
+    setTimeout(() => {
+        notification.style.transform = 'translateY(100px)';
+        notification.style.opacity = '0';
+    }, 3000);
+}
+
+/**
+ * Met à jour le compteur d'articles du panier
+ */
+function updateCartCount() {
+    const cartCountElements = document.querySelectorAll('.cart-count, #cart-count');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    
+    cartCountElements.forEach(element => {
+        element.textContent = totalItems;
+        
+        // Animation du compteur
+        element.classList.add('pulse');
+        setTimeout(() => element.classList.remove('pulse'), 500);
+    });
+}
+
+/**
+ * Anime le bouton d'ajout au panier
+ */
+function animateButton(button) {
+    button.classList.add('clicked');
+    setTimeout(() => button.classList.remove('clicked'), 300);
+}
+
+// Ajouter ces styles au CSS
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .pulse {
+            animation: pulse 0.5s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
+        }
+        
+        .clicked {
+            transform: scale(0.95);
+            background-color: #45a049 !important;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Initialiser le compteur du panier
+    updateCartCount();
+});
+        // Initialiser les produits
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+        });
+        // Fonction pour afficher les produits
+        function displayProducts(productsToShow) {
+            const container = document.getElementById('products-container');
+            container.innerHTML = '';
+            
+            productsToShow.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" onerror="this.src='images/placeholder.jpg'">
+                    <h3>${product.name}</h3>
+                    <p>${product.description}</p>
+                    <p class="price">${product.price}€</p>
+                    <button onclick="addToCart(${product.id}, '${product.name}', ${product.price})">Ajouter au panier</button>
+                `;
+                container.appendChild(productCard);
+            });
+        }
+        
+        // Fonction pour filtrer les produits
+        function filterProducts() {
+            const category = document.getElementById('category').value;
+            let filteredProducts;
+            
+            if (category === 'all') {
+                filteredProducts = products;
+            } else {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            displayProducts(filteredProducts);
+        }
+        // Fonction pour ajouter un produit au panier
+        function addToCart(productId, productName, productPrice) {
+            // Logique pour ajouter le produit au panier
+            console.log(`Produit ajouté: ${productName} (ID: ${productId}, Prix: ${productPrice}€)`);
+            // Mettre à jour le compteur du panier
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = parseInt(cartCount.textContent) + 1;
+        }
+        // Initialiser le compteur du panier
+        document.getElementById('cart-count').textContent = 0;
+        // Afficher les produits au chargement de la page
+        displayProducts(products);
+        // Filtrer les produits par catégorie au chargement
+        filterProducts();
+        // Mettre à jour le compteur du panier
+        document.getElementById('cart-count').textContent = 0;
+        // Ajouter un écouteur d'événement pour le chargement de la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher les produits au chargement
+            displayProducts(products);
+        });
+        // Mettre à jour le compteur du panier
+        document.getElementById('cart-count').textContent = 0;
+        
+        // Afficher tous les produits au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts(products);
+        });
+    </script>
+</body>
+</html>

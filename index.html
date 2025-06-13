@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <div class="Bienvenue">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcomDiyalkom - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+    <h1>Bienvenue sur EcomDiyalkom</h1>
+    </div>
+    <link rel="script" href="script.js">
+</head>
+        <header>
+       <!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcomDiyalkom - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>EcomDiyalkom Dima M3akom</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="apropos.html">À propos</a></li>
+                <li><a href="Panier.html">Panier <span id="cart-count">0</span></a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="auth.html">Login/Sign Up</a></li>
+                <li><a href="produits.html">Produits</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="text-center">
+            <p>Votre boutique en ligne pour des produits artisanaux et locaux.</p>
+            <img src="https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg" alt="Logo EcomDiyalkom" style="width:200px; height:auto; margin:0 auto;">
+        </section>
+
+        <section>
+            <h2>Nos Produits <em>Tendances</em></h2>
+            <p>Découvrez les dernières tendances en matière de produits artisanaux.</p>
+            
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg" alt="Vêtement artisanal">
+                    <h3>Vêtement traditionnel</h3>
+                    <p>Vêtement fait main par des artisans locaux.</p>
+                    <p class="price">45€</p>
+                    <button onclick="addToCart(1, 'Vêtement traditionnel', 45)">Ajouter au panier</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg" alt="Accessoire unique">
+                    <h3>Bijou artisanal</h3>
+                    <p>Accessoire unique fait à la main.</p>
+                    <p class="price">30€</p>
+                    <button onclick="addToCart(2, 'Bijou artisanal', 30)">Ajouter au panier</button>
+                </div>
+                
+                <div class="product-card">
+                    <img src="https://d17a17kld06uk8.cloudfront.net/products/JSF35IS/EWZYRRFC-large.jpg" alt="Décoration artisanale">
+                    <h3>Décoration maison</h3>
+                    <p>Décorations artisanales pour votre intérieur.</p>
+                    <p class="price">25€</p>
+                    <button onclick="addToCart(3, 'Décoration maison', 25)">Ajouter au panier</button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Pourquoi Choisir EcomDiyalkom ?</h2>
+            <p>Nous nous engageons à offrir des produits de qualité, fabriqués avec passion par des artisans locaux. En choisissant EcomDiyalkom, vous soutenez l'économie locale et l'artisanat traditionnel.</p>
+            <p>Notre mission est de rendre l'artisanat accessible à tous, tout en préservant les savoir-faire locaux.</p>
+            <p>Rejoignez-nous dans cette aventure et découvrez la richesse de l'artisanat local.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 EcomDiyalkom. Tous droits réservés.</p>
+        <p>Contactez-nous à <a href="contact.html">contact</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
